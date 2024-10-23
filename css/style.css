@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+#book-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book-card {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
