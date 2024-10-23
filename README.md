@@ -43,14 +43,14 @@ Este projeto implementa um sistema de recomendação de livros utilizando o algo
 
 ## Instalação
 
-1. **Clone o repositório:**
+1. **Clone o repositório e acesse a página via terminal:**
     git clone <https://github.com/JordanAquino/ProjetoKNN.git>.
     cd PROJETOKNN
 
-2. **Instale as dependências necessárias:**
+3. **Instale as dependências necessárias:**
     pip install Flask pandas scikit-learn
 
-3. **Coloque o arquivo data.csv na pasta backend.**
+4. **Coloque o arquivo data.csv na pasta backend.**
   
 ## Uso
 
