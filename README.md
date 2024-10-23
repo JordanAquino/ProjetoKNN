@@ -54,7 +54,7 @@ Este projeto implementa um sistema de recomendação de livros utilizando o algo
   
 ## Uso
 
-1. **Execute o aplicativo Flask:**
+1. **Execute o aplicativo Flask no terminal:**
     python backend/app.py
 
 2. **Acesse o aplicativo em seu navegador:**
