@@ -27,16 +27,17 @@ Este projeto implementa um sistema de recomendação de livros utilizando o algo
 PROJETOKNN/
 │
 ├── views/
-│   ├── index.html
-│   └── recommendations.html
+│   ├── index.html           # Página inicial do projeto
+│   └── recommendations.html # Página de recomendações
 │
 ├── css/
-│   └── style.css
+│   └── style.css            # Folha de estilos do projeto
 │   
 ├── backend/   
-│   └── app.py
+│   └── app.py               # Código do backend do aplicativo
 │
-└── README.md
+└── README.md                # Documentação do projeto
+
 
 
 ### Descrição dos Arquivos
