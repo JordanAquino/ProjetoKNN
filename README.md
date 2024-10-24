@@ -24,14 +24,20 @@ Este projeto implementa um sistema de recomendação de livros utilizando o algo
 
 ## Estrutura do Projeto
 
-/PROJETOKNN
-    /templates
-        index.html
-        recommendations.html
-    /css
-        style.css
-    /backend
-        app.py
+PROJETOKNN/
+│
+├── views/
+│   ├── index.html
+│   └── recommendations.html
+│
+├── css/
+│   └── style.css
+│   
+├── backend/   
+│   └── app.py
+│
+└── README.md
+
 
 ### Descrição dos Arquivos
 
