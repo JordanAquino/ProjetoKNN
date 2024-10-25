@@ -6,28 +6,23 @@ import os
 import webbrowser
 import threading
 
-# Carregar os dados
 data = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data.csv'))
 
-# Preprocessar os dados
 df_knn = data[['category_name', 'author', 'stars', 'price']].copy()
 
-# Codificação de variáveis categóricas
 label_encoder_category = LabelEncoder()
 df_knn['category_encoded'] = label_encoder_category.fit_transform(df_knn['category_name'])
 
-# Normalização das características numéricas
 scaler = MinMaxScaler()
 df_knn[['stars_normalized', 'price_normalized']] = scaler.fit_transform(df_knn[['stars', 'price']])
 
-# Prepare as características para o KNN
 X = df_knn[['category_encoded', 'stars_normalized', 'price_normalized']]
-knn = NearestNeighbors(n_neighbors=6, algorithm='auto', metric='euclidean')  # Um a mais para evitar o livro escolhido
+knn = NearestNeighbors(n_neighbors=6, algorithm='auto', metric='euclidean')
 knn.fit(X)
 
 app = Flask(__name__, template_folder='../views', static_folder='../css')
 
-BOOKS_PER_PAGE = 99  # Ajustando para exibir 99 livros por página
+BOOKS_PER_PAGE = 100
 
 @app.route('/', methods=['GET'])
 def index():
@@ -35,7 +30,6 @@ def index():
     page = int(request.args.get('page', 1))
 
     if search_query:
-        # Adicionando regex=False para evitar o aviso de expressão regular
         filtered_books = data[data['title'].str.contains(search_query, case=False, na=False, regex=False)]
     else:
         filtered_books = data
@@ -53,7 +47,6 @@ def index():
 def recommend():
     book_title = request.form['title']
     
-    # Verificar se o título do livro existe no DataFrame
     if book_title not in data['title'].values:
         return render_template('recommendations.html', selected_book=book_title, books=[], average_distance=None)
 
@@ -63,14 +56,12 @@ def recommend():
 
     recommended_books = data.iloc[indices[0]][['title', 'imgUrl', 'category_name', 'author', 'price', 'stars']].to_dict(orient='records')
 
-    # Filtrando as recomendações com base na distância e removendo o livro escolhido
     distance_limit = 1.0
     filtered_books = [
         book for i, book in enumerate(recommended_books) 
         if distances[0][i] <= distance_limit and book['title'] != book_title
     ]
 
-    # Garantir que tenhamos 5 recomendações
     if len(filtered_books) < 5:
         additional_books = [
             book for book in recommended_books 
@@ -78,17 +69,14 @@ def recommend():
         ]
         filtered_books.extend(additional_books[:5 - len(filtered_books)])
 
-    # Limitar a quantidade de livros recomendados a 5
     filtered_books = filtered_books[:5]
 
-    # Calcular a distância média
     if len(filtered_books) > 0:
         distances_for_average = distances[0][1:len(filtered_books) + 1] 
         average_distance = distances_for_average.mean() if len(distances_for_average) > 0 else None
     else:
         average_distance = None
 
-    # Adicionando o livro selecionado ao contexto para ser exibido
     selected_book_info = {
         'title': book_title,
         'imgUrl': data.loc[selected_book_index, 'imgUrl'],
@@ -99,8 +87,6 @@ def recommend():
     }
 
     return render_template('recommendations.html', selected_book=selected_book_info, books=filtered_books, average_distance=average_distance)
-
-
 
 @app.route('/autocomplete', methods=['GET'])
 def autocomplete():
@@ -114,7 +100,7 @@ def autocomplete():
     return jsonify(suggestions)
 
 def open_browser():
-    webbrowser.open("http://127.0.0.1:5000/", new=2)
+    webbrowser.open("http://127.0.0.1:5000/")
 
 if __name__ == '__main__':
     threading.Timer(1, open_browser).start()
