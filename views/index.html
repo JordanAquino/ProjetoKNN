@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/cards.css">
+  <title>Book Recommender</title>
+</head>
+
+<body>
+  <header>
+    <h1>Find Your Next Favorite Book</h1>
+    <form action="/" method="GET">
+      <input type="text" id="search" name="search" placeholder="Search for a book..." autocomplete="off">
+      <div id="suggestions"></div>
+      <button type="submit">Search</button>
+    </form>
+  </header>
+
+  <div id="book-list">
+    {% for book in books %}
+    <div class="book-card">
+      <img src="{{ book['imgUrl'] }}" alt="Book Cover" class="book-image">
+      <div class="book-info">
+        <h3>{{ book['title'] }}</h3>
+        <p><strong>Author:</strong> {{ book['author'] }}</p>
+        <p><strong>Category:</strong> {{ book['category_name'] }}</p>
+        <p><strong>Price:</strong> R$ {{ book['price'] }}</p>
+        <p><strong>Rating:</strong> {{ book['stars'] }}</p>
+        <form action="/recommend" method="POST">
+          <input type="hidden" name="title" value="{{ book['title'] }}">
+          <button type="submit">Recommend</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#search').on('input', function () {
+        let query = $(this).val();
+        if (query.length > 2) {
+          $.get('/autocomplete', { query: query }, function (data) {
+            let suggestions = data.map(title => `<div class="suggestion-item">${title}</div>`).join('');
+            $('#suggestions').html(suggestions).show();
+          });
+        } else {
+          $('#suggestions').hide();
+        }
+      });
+
+      // Esconder sugestões quando clicar em um item
+      $(document).on('click', '.suggestion-item', function () {
+        $('#search').val($(this).text());
+        $('#suggestions').hide();
+      });
+    });
+  </script>
+</body>
+
+</html>

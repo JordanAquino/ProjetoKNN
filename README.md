@@ -31,10 +31,12 @@ PROJETOKNN/
 │   ├── index.html         # Página inicial do projeto
 │   └── recommendations.html # Página de recomendações
 │
-├── css/
-│   └── style.css          # Folha de estilos do projeto
-│   
-├── backend/   
+├── css/                         # Folhas de estilo CSS
+│   ├── style.css                # Estilos globais e layout
+│   ├── cards.css                # Estilos específicos para os cards de livros
+│   └── theme.css                # Variáveis de cores e temas
+│
+├── backend/
 │   └── app.py             # Código do backend do aplicativo
 │
 └── README.md              # Documentação do projeto
@@ -51,22 +53,20 @@ PROJETOKNN/
 ## Instalação
 
 1. **Clone o repositório e acesse a página via terminal:**
-    git clone <https://github.com/JordanAquino/ProjetoKNN.git>.
-    cd PROJETOKNN
+   git clone <https://github.com/JordanAquino/ProjetoKNN.git>.
+   cd PROJETOKNN
 
-3. **Instale as dependências necessárias:**
-    pip install Flask pandas scikit-learn
+2. **Instale as dependências necessárias:**
+   pip install Flask pandas scikit-learn
 
-4. **Coloque o arquivo data.csv na pasta backend.**
-  
+3. **Coloque o arquivo data.csv na pasta backend.**
+
 ## Uso
 
 1. **Execute o aplicativo Flask no terminal:**
-    python backend/app.py
+   python backend/app.py
 
 2. **Acesse o aplicativo em seu navegador:**
-    http://127.0.0.1:5000
+   http://127.0.0.1:5000
 
 3. **Pesquise ou selecione um livro e visualize as recomendações com base na sua seleção.**
-
-

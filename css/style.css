@@ -1,21 +1,46 @@
 body {
   font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
 }
 
-h1 {
+header {
   text-align: center;
+  padding: 20px;
+  background-color: #007bff;
+  color: white;
 }
 
-#book-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
 }
 
-.book-card {
-  margin: 20px;
+form {
+  margin-top: 20px;
+}
+
+#search {
   padding: 10px;
-  border: 1px solid #ddd;
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  width: 60%;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 5px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #007bff;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-weight: bold;
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/cards.css">
+  <title>Recommended Books</title>
+</head>
+
+<body>
+  <header>
+    <h1>Recommended Books for "{{ selected_book['title'] }}"</h1>
+  </header>
+
+  <div id="highlighted-book">
+    <div class="book-card highlight">
+      <img src="{{ selected_book['imgUrl'] }}" alt="Book Cover">
+      <div class="book-info">
+        <h3>{{ selected_book['title'] }}</h3>
+        <p><strong>Author:</strong> {{ selected_book['author'] }}</p>
+        <p><strong>Category:</strong> {{ selected_book['category_name'] }}</p>
+        <p><strong>Price:</strong> R$ {{ selected_book['price'] }}</p>
+        <p><strong>Rating:</strong> {{ selected_book['stars'] }}</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Recommended Books</h2>
+  <div class="recommended-books">
+    {% for book in books %}
+    <div class="book-card">
+      <img src="{{ book['imgUrl'] }}" alt="Book Cover">
+      <div class="book-info">
+        <h3>{{ book['title'] }}</h3>
+        <p><strong>Author:</strong> {{ book['author'] }}</p>
+        <p><strong>Category:</strong> {{ book['category_name'] }}</p>
+        <p><strong>Price:</strong> R$ {{ book['price'] }}</p>
+        <p><strong>Rating:</strong> {{ book['stars'] }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h2>Average Distance: {{ average_distance }}</h2>
+
+  <a href="/">Go back to search</a>
+</body>
+
+</html>

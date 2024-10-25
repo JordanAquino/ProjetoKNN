@@ -1,0 +1,67 @@
+#book-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.book-card {
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: white;
+  width: 20%; /* 4 cards por linha */
+  transition: transform 0.2s;
+}
+
+.book-card img {
+  width: 100px; /* Largura fixa para as capas dos livros */
+  height: 150px; /* Altura fixa para manter o tamanho consistente */
+  object-fit: cover; /* Corta a imagem para preencher a área sem distorcer */
+  margin-right: 10px;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card.highlight {
+  border: 2px solid #007bff;
+}
+
+.book-card:hover {
+  transform: scale(1.05);
+}
+
+.recommendation-levels {
+  margin-top: 20px;
+}
+
+.recommended-books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#suggestions {
+  position: absolute;
+  background: #007bff;
+  border: 1px solid #ddd;
+  width: 60%;
+  display: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000; /* Garantir que as sugestões apareçam acima de outros elementos */
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #003670; /* Destaque ao passar o mouse */
+}
