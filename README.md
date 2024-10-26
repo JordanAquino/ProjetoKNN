@@ -31,10 +31,10 @@ PROJETOKNN/
 │   ├── index.html         # Página inicial do projeto
 │   └── recommendations.html # Página de recomendações
 │
-├── css/                         # Folhas de estilo CSS
+├── css/                         # Pasta CSS
 │   ├── style.css                # Estilos globais e layout
 │   ├── cards.css                # Estilos específicos para os cards de livros
-│   └── theme.css                # Variáveis de cores e temas
+│   └── recommed.css                # Estilos específicos para a página recommed
 │
 ├── backend/
 │   └── app.py             # Código do backend do aplicativo
