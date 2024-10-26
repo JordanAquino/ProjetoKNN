@@ -40,8 +40,17 @@ def index():
     end_index = start_index + BOOKS_PER_PAGE
     books = filtered_books[start_index:end_index][['title', 'imgUrl', 'category_name', 'author', 'price', 'stars']].to_dict(orient='records')
 
-    return render_template('index.html', books=books, total_pages=total_pages, current_page=page)
+    pagination_start = max(1, page - 2)
+    pagination_end = min(total_pages, page + 2)
 
+    return render_template(
+        'index.html',
+        books=books,
+        total_pages=total_pages,
+        current_page=page,
+        pagination_start=pagination_start,
+        pagination_end=pagination_end
+    )
 
 @app.route('/recommend', methods=['POST'])
 def recommend():

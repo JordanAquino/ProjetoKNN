@@ -1,65 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ptbr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/cards.css" />
+    <title>Recomendando Experiências</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/cards.css">
-  <title>Book Recommender</title>
-</head>
+  <body>
+    <header>
+      <h1>Encontre seu próximo livro favorito</h1>
+      <form action="/" method="GET">
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Busque por seu livro..."
+          autocomplete="off"
+        />
+        <div id="suggestions"></div>
+        <button class="button-header" type="submit">Pesquisar</button>
+      </form>
+    </header>
 
-<body>
-  <header>
-    <h1>Find Your Next Favorite Book</h1>
-    <form action="/" method="GET">
-      <input type="text" id="search" name="search" placeholder="Search for a book..." autocomplete="off">
-      <div id="suggestions"></div>
-      <button type="submit">Search</button>
-    </form>
-  </header>
+    <div id="book-list">
+      {% for book in books %}
+      <div class="book-card">
+        <img src="{{ book['imgUrl'] }}" alt="Book Cover" class="book-image" />
 
-  <div id="book-list">
-    {% for book in books %}
-    <div class="book-card">
-      <img src="{{ book['imgUrl'] }}" alt="Book Cover" class="book-image">
-      <div class="book-info">
-        <h3>{{ book['title'] }}</h3>
-        <p><strong>Author:</strong> {{ book['author'] }}</p>
-        <p><strong>Category:</strong> {{ book['category_name'] }}</p>
-        <p><strong>Price:</strong> R$ {{ book['price'] }}</p>
-        <p><strong>Rating:</strong> {{ book['stars'] }}</p>
+        <div class="book-info">
+          <h3>{{ book['title'] }}</h3>
+          <div class="box">
+            <div class="text-center">
+              <strong class="price">Preço:</strong>
+              <span>R$ {{ book['price'] }} </span>
+            </div>
+
+            <div class="box-middle">
+              <div class="text-middle">
+                <strong>Autor:</strong> {{ book['author'] }}
+              </div>
+
+              <div class="text-middle">
+                <strong>Categoria:</strong> <span style="font-weight: 500;">  {{ book['category_name'] }}</span>
+              </div>
+
+              <div class="text-middle">
+                <strong>avaliação:</strong>
+                <span style="color: #f7a837">{{ book['stars'] }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <form action="/recommend" method="POST">
-          <input type="hidden" name="title" value="{{ book['title'] }}">
-          <button type="submit">Recommend</button>
+          <input type="hidden" name="title" value="{{ book['title'] }}" />
+          <button class="button-recommend" type="submit">Recomendar</button>
         </form>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('#search').on('input', function () {
-        let query = $(this).val();
-        if (query.length > 2) {
-          $.get('/autocomplete', { query: query }, function (data) {
-            let suggestions = data.map(title => `<div class="suggestion-item">${title}</div>`).join('');
-            $('#suggestions').html(suggestions).show();
-          });
-        } else {
-          $('#suggestions').hide();
-        }
+
+<div class="pagination">
+  {% if current_page > 1 %}
+      <a href="/?page={{ current_page - 1 }}" class="arrow">&laquo; Anterior</a>
+  {% endif %}
+
+  {% for p in range(pagination_start, pagination_end + 1) %}
+      {% if p == current_page %}
+          <span class="active">{{ p }}</span>
+      {% else %}
+          <a href="/?page={{ p }}">{{ p }}</a>
+      {% endif %}
+  {% endfor %}
+
+  {% if current_page < total_pages %}
+      <a href="/?page={{ current_page + 1 }}" class="arrow">Próximo &raquo;</a>
+  {% endif %}
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#search").on("input", function () {
+          let query = $(this).val();
+          if (query.length > 2) {
+            $.get("/autocomplete", { query: query }, function (data) {
+              let suggestions = data
+                .map((title) => `<div class="suggestion-item">${title}</div>`)
+                .join("");
+              $("#suggestions").html(suggestions).show();
+            });
+          } else {
+            $("#suggestions").hide();
+          }
+        });
+
+        $(document).on("click", ".suggestion-item", function () {
+          $("#search").val($(this).text());
+          $("#suggestions").hide();
+        });
       });
-
-      // Esconder sugestões quando clicar em um item
-      $(document).on('click', '.suggestion-item', function () {
-        $('#search').val($(this).text());
-        $('#suggestions').hide();
-      });
-    });
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
