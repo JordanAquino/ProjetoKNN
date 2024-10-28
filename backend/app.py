@@ -17,7 +17,7 @@ scaler = MinMaxScaler()
 df_knn[['stars_normalized', 'price_normalized']] = scaler.fit_transform(df_knn[['stars', 'price']])
 
 X = df_knn[['category_encoded', 'stars_normalized', 'price_normalized']]
-knn = NearestNeighbors(n_neighbors=6, algorithm='auto', metric='euclidean')
+knn = NearestNeighbors(n_neighbors=5, algorithm='auto', metric='euclidean')
 knn.fit(X)
 
 app = Flask(__name__, template_folder='../views', static_folder='../css')
